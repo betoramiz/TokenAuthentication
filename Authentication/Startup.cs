@@ -27,6 +27,8 @@ namespace Authentication
         }
 
         public IConfiguration Configuration { get; }
+        public readonly string PoliicyName = "AllowAnyOrigin";
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -38,6 +40,10 @@ namespace Authentication
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddCors(options => {
+                options.AddPolicy(PoliicyName, builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+            });
 
             var key = Encoding.UTF8.GetBytes(Configuration["Jwt:SigninKey"]);
             services.AddAuthentication(option =>
@@ -78,7 +84,7 @@ namespace Authentication
                 app.UseHsts();
             }
 
-
+            app.UseCors(PoliicyName);
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
