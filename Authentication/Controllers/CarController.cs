@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Authentication.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CarController : ControllerBase
