@@ -26,5 +26,13 @@ namespace Authentication.Controllers
 
             return Ok(carList);
         }
+
+
+        [HttpGet]
+        [Route("test")]
+        public IActionResult Test()
+        {
+            return Ok("Test success");
+        }
     }
 }
